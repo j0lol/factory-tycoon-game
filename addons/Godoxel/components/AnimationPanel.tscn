@@ -1,0 +1,109 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/Godoxel/components/AnimationPanel.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.2, 0.227451, 0.309804, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
+
+[node name="AnimationPanel" type="Panel"]
+margin_right = 653.0
+margin_bottom = 120.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="VBoxContainer"]
+margin_right = 653.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayPause" type="Button" parent="VBoxContainer/Panel/HBoxContainer"]
+margin_top = 5.0
+margin_right = 60.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 60, 30 )
+size_flags_vertical = 4
+text = "Play"
+
+[node name="FrameRate" type="SpinBox" parent="VBoxContainer/Panel/HBoxContainer"]
+margin_left = 80.0
+margin_top = 4.0
+margin_right = 154.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_vertical = 4
+min_value = 0.001
+max_value = 200.0
+step = 0.1
+value = 5.0
+align = 1
+suffix = "fps"
+
+[node name="ToggleAnimationLoop" type="CheckButton" parent="VBoxContainer/Panel/HBoxContainer"]
+margin_left = 174.0
+margin_right = 285.0
+margin_bottom = 40.0
+pressed = true
+text = "Loop"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+margin_top = 44.0
+margin_right = 653.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+margin_right = 653.0
+margin_bottom = 76.0
+rect_min_size = Vector2( 450, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AnimationButtons" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/HBoxContainer2"]
+margin_right = 653.0
+size_flags_horizontal = 3
+custom_constants/separation = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/HBoxContainer2"]
+margin_top = 4.0
+margin_right = 120.0
+margin_bottom = 34.0
+size_flags_horizontal = 0
+
+[node name="AddAnimation" type="Button" parent="VBoxContainer/ScrollContainer/HBoxContainer2/VBoxContainer"]
+margin_right = 120.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 120, 30 )
+text = "+"
+
+[connection signal="pressed" from="VBoxContainer/Panel/HBoxContainer/PlayPause" to="." method="_on_PlayPause_pressed"]
+[connection signal="value_changed" from="VBoxContainer/Panel/HBoxContainer/FrameRate" to="." method="_on_FrameRate_value_changed"]
+[connection signal="pressed" from="VBoxContainer/Panel/HBoxContainer/ToggleAnimationLoop" to="." method="_on_ToggleAnimationLoop_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/HBoxContainer2/VBoxContainer/AddAnimation" to="." method="_on_AddAnimation_pressed"]
