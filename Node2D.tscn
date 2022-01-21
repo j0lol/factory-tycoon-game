@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://map.gd" type="Script" id=1]
 [ext_resource path="res://images/spritesheet.png" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://HUDMap.gd" type="Script" id=5]
 [ext_resource path="res://GameTimer.gd" type="Script" id=6]
-[ext_resource path="res://Item.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Hotbar.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Spawner.gd" type="Script" id=8]
 [ext_resource path="res://m5x7.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://images/spawner.png" type="Texture" id=10]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Root.gd" type="Script" id=12]
 [ext_resource path="res://Machine.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Chest.tscn" type="PackedScene" id=14]
+[ext_resource path="res://InputManager.gd" type="Script" id=15]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -149,16 +150,30 @@ collision_mask = 5
 
 [node name="Machine" parent="." instance=ExtResource( 13 )]
 
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2( 136, 24 )
+script = ExtResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="Spawner"]
+texture = ExtResource( 10 )
+
+[node name="Chest" parent="." instance=ExtResource( 14 )]
+position = Vector2( 320, 32 )
+
 [node name="HUDMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
 script = ExtResource( 5 )
 
-[node name="GameTimer" type="Node2D" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hotbar" parent="CanvasLayer" instance=ExtResource( 7 )]
+
+[node name="GameTimer" type="Node2D" parent="CanvasLayer"]
 script = ExtResource( 6 )
 
-[node name="RichTextLabel" type="Label" parent="GameTimer"]
+[node name="RichTextLabel" type="Label" parent="CanvasLayer/GameTimer"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 56.0
@@ -169,42 +184,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item" parent="." instance=ExtResource( 7 )]
-visible = false
-position = Vector2( 232, 40 )
-_item = 6
-
-[node name="Item2" parent="." instance=ExtResource( 7 )]
-visible = false
-position = Vector2( 56, 56 )
-_item = 12
-
-[node name="Control" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control"]
-margin_left = 11.0
-margin_top = 192.0
-margin_right = 51.0
-margin_bottom = 206.0
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_left = 8.0
+margin_top = 168.0
+margin_right = 182.0
+margin_bottom = 182.0
 custom_fonts/font = SubResource( 7 )
 text = "click to place/remove R to rotate"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spawner" type="Node2D" parent="."]
-position = Vector2( 136, 24 )
-script = ExtResource( 8 )
-
-[node name="Sprite" type="Sprite" parent="Spawner"]
-texture = ExtResource( 10 )
-
-[node name="Chest" parent="." instance=ExtResource( 14 )]
-position = Vector2( 320, 32 )
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource( 15 )
 
 [connection signal="i_am_root" from="." to="Machine" method="_on_Node2D_i_am_root"]

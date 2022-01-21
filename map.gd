@@ -31,14 +31,18 @@ func tile_input():
 	else: return false
 	return true
 
+func place_tile_mouse(tile):
+	var coords = library.get_mouse_tile_pos(self)
+	set_cell(coords.x, coords.y, tile, 
+		rotations[current_rotation][0], 
+		rotations[current_rotation][1], 
+		rotations[current_rotation][2])
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	input()
 	if !tile_input(): return
 	
-	var coords = library.get_mouse_tile_pos(self)
 
-	set_cell(coords.x, coords.y, tile, 
-		rotations[current_rotation][0], 
-		rotations[current_rotation][1], 
-		rotations[current_rotation][2])
+
+

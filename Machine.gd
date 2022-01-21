@@ -23,7 +23,7 @@ func _on_Machine_area_shape_entered(_area_rid, area, _area_shape_index, _local_s
 	if "Item" in area.name:
 		inventory.push_back(area._item)
 		emit_signal("item_added")
-	area.queue_free()
+		area.queue_free()
 
 
 func _on_Machine_item_added():
@@ -36,8 +36,8 @@ func _on_Machine_item_added():
 	s.position = Vector2(8,8) + Vector2(32,16)
 	add_child(s)
 	
-
-
 var root
-func _on_Node2D_i_am_root(new_root):
-	   root = new_root
+func _process(delta):
+	root = get_parent().root
+
+
