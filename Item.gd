@@ -38,7 +38,7 @@ func _ready():
 	get_child(0).texture = load("res://images/"+items[_item]+".png")
 	EventBus.connect("tick", self, "_on_Tick")
 	root = get_parent().root
-	print(get_parent())
+
 
 
 

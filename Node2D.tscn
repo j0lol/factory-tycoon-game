@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://map.gd" type="Script" id=1]
 [ext_resource path="res://images/spritesheet.png" type="Texture" id=2]
@@ -7,12 +7,13 @@
 [ext_resource path="res://HUDMap.gd" type="Script" id=5]
 [ext_resource path="res://GameTimer.gd" type="Script" id=6]
 [ext_resource path="res://Item.tscn" type="PackedScene" id=7]
-[ext_resource path="res://images/spawner.png" type="Texture" id=8]
+[ext_resource path="res://Spawner.gd" type="Script" id=8]
 [ext_resource path="res://m5x7.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://89uijoefrwijuo.gd" type="Script" id=10]
+[ext_resource path="res://images/spawner.png" type="Texture" id=10]
 [ext_resource path="res://images/cursor.png" type="Texture" id=11]
 [ext_resource path="res://Root.gd" type="Script" id=12]
 [ext_resource path="res://Machine.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Chest.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -196,11 +197,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spawner2" type="Node2D" parent="."]
+[node name="Spawner" type="Node2D" parent="."]
 position = Vector2( 136, 24 )
-script = ExtResource( 10 )
+script = ExtResource( 8 )
 
-[node name="Sprite" type="Sprite" parent="Spawner2"]
-texture = ExtResource( 8 )
+[node name="Sprite" type="Sprite" parent="Spawner"]
+texture = ExtResource( 10 )
+
+[node name="Chest" parent="." instance=ExtResource( 14 )]
+position = Vector2( 320, 32 )
 
 [connection signal="i_am_root" from="." to="Machine" method="_on_Node2D_i_am_root"]
