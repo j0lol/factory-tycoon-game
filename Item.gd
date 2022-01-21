@@ -4,6 +4,7 @@ extends Area2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+var delta
 export var _item=22
 var items = [
 	"gear-copper",
@@ -42,8 +43,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(d):
+	delta = d
 
 onready var tween = $Tween
 onready var ray = $RayCast2D

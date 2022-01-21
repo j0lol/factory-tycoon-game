@@ -19,8 +19,6 @@ func _on_Machine_area_shape_entered(_area_rid, area, _area_shape_index, _local_s
 		inventory.push_back(area._item)
 		emit_signal("item_added")
 		print(inventory)
-
-
 	area.queue_free()
 
 
