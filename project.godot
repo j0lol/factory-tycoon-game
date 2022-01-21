@@ -272,7 +272,7 @@ instance_dock/scenes=[ {
 
 [application]
 
-config/name="Gdscrpitgame"
+config/name="Factory-tycoon"
 run/main_scene="res://Node2D.tscn"
 config/icon="res://icon.png"
 
