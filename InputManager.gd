@@ -1,21 +1,30 @@
-extends Node
+extends Node2D
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+var mouse_collide = false
+
 
 onready var hotbar = get_node("/root/Root/CanvasLayer/Hotbar")
 onready var map = get_node("/root/Root/TileMap")
 var rotation_cooldown = 0
-var place_cooldown = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+func _process(delta):
+	input()
+	match hotbar.selected:
+		1: tile_input()
+		2: object_input("res://Machine.tscn","Machine")
+		3: object_input("res://Chest.tscn","Chest")
+
+
 func input(): 
 	rotation_cooldown -= 1
-	place_cooldown -= 1
 	if Input.is_action_pressed("rotate"):
 		if rotation_cooldown < 1:
 			global.rotation += 1
@@ -33,29 +42,16 @@ func tile_input():
 	elif Input.is_action_pressed("rclick"):
 		global.tile = -1
 		place_tile_mouse(-1)
-	else: return false
-	return true
 
-func machine_input():
-	if place_cooldown < 1:
-		place_cooldown = 30
-		if Input.is_action_pressed("click"):
-			spawn_scene("res://Machine.tscn","Machine")
 
-		elif Input.is_action_pressed("rclick"):
-			spawn_scene("res://Killer.tscn","Killer")
-	else: return false
-	return true
+func object_input(link, name):
+	if Input.is_action_just_pressed("click"):
+		if !mouse_collide:
+			spawn_scene(link,name)
+	elif Input.is_action_pressed("rclick"):
+		spawn_scene("res://Killer.tscn","Killer")
 
-func chest_input():
-	if place_cooldown < 1:
-		place_cooldown = 30
-		if Input.is_action_pressed("click"):
-			spawn_scene("res://Chest.tscn","Chest")
-		elif Input.is_action_pressed("rclick"):
-			spawn_scene("res://Killer.tscn","Killer")
-		else: return false
-		return true
+
 
 func place_tile_mouse(tile):
 	var coords = library.get_mouse_tile_pos(map)
@@ -64,14 +60,26 @@ func place_tile_mouse(tile):
 		map.rotations[global.rotation][1], 
 		map.rotations[global.rotation][2])
 
-func _process(delta):
-	input()
-	match hotbar.selected:
-		1: tile_input()
-		2: machine_input()
-		3: chest_input()
+
+
+func _physics_process(delta):
+	query_space()
+	
+func query_space():
+	var physics := get_world_2d().direct_space_state
+
+	var hits = physics.intersect_ray(get_viewport().get_mouse_position(), 
+				get_viewport().get_mouse_position(), [],
+				0x7FFFFFFF, false, true)
+	if hits:
+		mouse_collide = true
+	else:
+		mouse_collide = false
+
+
 
 func spawn_scene(link, name):
+	print("PLACE")
 	var s = load(link).instance()
 	s.name = name
 	s.position = get_viewport().get_mouse_position() - Vector2(8,8)

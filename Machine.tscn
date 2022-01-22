@@ -21,4 +21,3 @@ position = Vector2( 16, 16 )
 shape = SubResource( 1 )
 
 [connection signal="area_shape_entered" from="." to="." method="_on_Machine_area_shape_entered"]
-[connection signal="item_added" from="." to="." method="_on_Machine_item_added"]

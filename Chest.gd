@@ -10,6 +10,9 @@ extends "res://Machine.gd"
 func _ready():
 	pass # Replace with function body.
 	
+func _on_Tick():
+	pass
+
 func _on_Machine_area_shape_entered(_area_rid, area, _area_shape_index, _local_shape_index):
 	if "Item" in area.name:
 		inventory.push_back(area._item)
