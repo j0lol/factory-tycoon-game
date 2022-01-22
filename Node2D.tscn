@@ -120,12 +120,14 @@ font_data = ExtResource( 9 )
 script = ExtResource( 12 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 192, 109 )
+position = Vector2( 192, 105 )
 current = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 384.0
-margin_bottom = 216.0
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 392.0
+margin_bottom = 224.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
@@ -167,12 +169,14 @@ texture = ExtResource( 10 )
 
 [node name="Chest" parent="." instance=ExtResource( 14 )]
 position = Vector2( 320, 32 )
+z_index = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Hotbar" parent="CanvasLayer" instance=ExtResource( 7 )]
 
 [node name="GameTimer" type="Node2D" parent="CanvasLayer"]
+visible = false
 script = ExtResource( 6 )
 
 [node name="RichTextLabel" type="Label" parent="CanvasLayer/GameTimer"]

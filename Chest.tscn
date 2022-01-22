@@ -8,6 +8,7 @@
 extents = Vector2( 8, 8 )
 
 [node name="Chest" instance=ExtResource( 1 )]
+z_index = 1
 script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
