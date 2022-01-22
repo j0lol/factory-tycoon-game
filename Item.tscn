@@ -7,6 +7,8 @@
 extents = Vector2( 4, 4 )
 
 [node name="Item" type="Area2D" groups=["tick"]]
+collision_layer = 16
+collision_mask = 39
 script = ExtResource( 1 )
 _item = 20
 
@@ -14,7 +16,8 @@ _item = 20
 texture = ExtResource( 2 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-collision_mask = 0
+collision_mask = 48
+collide_with_areas = true
 
 [node name="Tween" type="Tween" parent="."]
 

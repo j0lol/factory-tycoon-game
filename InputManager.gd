@@ -16,12 +16,15 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
+	if global.in_ui:
+		return
+	
 	input()
 	match hotbar.selected:
 		1: tile_input()
 		2: object_input("res://Machine.tscn","Machine", true)
 		3: object_input("res://Chest.tscn","Chest", false)
-
+	# 	8: Handled by Clicker.gd
 
 func input(): 
 	rotation_cooldown -= 1
@@ -60,7 +63,7 @@ func object_input(link, name, big):
 
 
 func place_tile_mouse(tile):
-	var coords = library.get_mouse_tile_pos(map)
+	var coords = map.world_to_map(map.get_global_mouse_position())
 	map.set_cell(coords.x, coords.y, tile, 
 		map.rotations[global.rotation][0], 
 		map.rotations[global.rotation][1], 
@@ -72,8 +75,8 @@ func _physics_process(delta):
 func query_space():
 	var physics := get_world_2d().direct_space_state
 
-	var hits = physics.intersect_ray(get_viewport().get_mouse_position(), 
-				get_viewport().get_mouse_position() + Vector2(0,1), [],
+	var hits = physics.intersect_ray(get_global_mouse_position(), 
+				get_global_mouse_position() + Vector2(0,1), [],
 				0x7FFFFFFF, false, true)
 	if hits:
 		mouse_collide = true
@@ -81,11 +84,11 @@ func query_space():
 	else:
 		mouse_collide = false
 	
-	var hits1 = physics.intersect_ray(get_viewport().get_mouse_position() + Vector2(0,16), 
-			get_viewport().get_mouse_position() + Vector2(16,16), [],
+	var hits1 = physics.intersect_ray(get_global_mouse_position() + Vector2(0,16), 
+			get_global_mouse_position() + Vector2(16,16), [],
 			0x7FFFFFFF, false, true)
-	var hits2 = physics.intersect_ray(get_viewport().get_mouse_position(), 
-			get_viewport().get_mouse_position() + Vector2(16,0), [],
+	var hits2 = physics.intersect_ray(get_global_mouse_position(), 
+			get_global_mouse_position() + Vector2(16,0), [],
 			0x7FFFFFFF, false, true)
 	if hits1 or hits2:
 		mouse_collide_big = true
@@ -95,6 +98,6 @@ func query_space():
 func spawn_scene(link, name):
 	var s = load(link).instance()
 	s.name = name
-	s.position = get_viewport().get_mouse_position() - Vector2(8,8)
+	s.position = get_global_mouse_position() - Vector2(8,8)
 	s.position = s.position.snapped(Vector2(16,16))
 	$"..".add_child(s)

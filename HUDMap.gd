@@ -13,7 +13,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	if global.in_ui:
+		return
 	self.clear()
 	var tile = library.get_mouse_tile_pos(self)
 	set_cell(tile.x, tile.y, 0)

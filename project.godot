@@ -280,6 +280,7 @@ config/icon="res://icon.png"
 
 global="*res://global.gd"
 EventBus="*res://EventBus.gd"
+Clicker="*res://Clicker.gd"
 
 [display]
 
@@ -297,6 +298,7 @@ enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg", "res://addons/r
 [global]
 
 gravity=false
+COLLISION=false
 
 [input]
 
@@ -352,6 +354,8 @@ scroll_down={
 2d_physics/layer_2="objects"
 2d_physics/layer_3="belts"
 2d_physics/layer_4="player"
+2d_physics/layer_5="items"
+2d_physics/layer_6="toggle machine"
 
 [physics]
 
