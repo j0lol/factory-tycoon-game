@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://map.gd" type="Script" id=1]
 [ext_resource path="res://images/spritesheet.png" type="Texture" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://Machine.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Chest.tscn" type="PackedScene" id=14]
 [ext_resource path="res://InputManager.gd" type="Script" id=15]
+[ext_resource path="res://images/rotation.png" type="Texture" id=16]
+[ext_resource path="res://RotationMarker.gd" type="Script" id=17]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -201,5 +203,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RotationMarker" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 104, 200 )
+texture = ExtResource( 16 )
+script = ExtResource( 17 )
+
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource( 15 )
+
+[connection signal="mouse_entered" from="Machine" to="Machine" method="_on_Machine_mouse_entered"]
+[connection signal="mouse_exited" from="Machine" to="Machine" method="_on_Machine_mouse_exited"]

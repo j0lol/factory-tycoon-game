@@ -16,6 +16,7 @@ var jobs = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	EventBus.connect("tick", self, "_on_Tick")
+	input_pickable = true
 
 func _on_Tick():
 	if inventory.size() > 0:
@@ -33,9 +34,27 @@ func _on_Machine_area_shape_entered(_area_rid, area, _area_shape_index, _local_s
 		inventory.push_back(area._item)
 		area.queue_free()
 
-
+var mouse_over = false
 var root
 func _process(delta):
 	root = get_parent().root
+	if mouse_over:
+		print("mouse over")
+		if Input.is_action_pressed("click"):
+			var t = Label.new()
+			t.text = inventory
+			add_child(t)
+			print(inventory)
 
 
+
+
+
+func _on_Machine_mouse_entered():
+	mouse_over = true
+	print("hi")
+
+
+
+func _on_Machine_mouse_exited():
+	mouse_over = true
