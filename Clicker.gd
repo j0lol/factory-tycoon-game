@@ -8,8 +8,9 @@ var ignore_unclickable = true
 
 func _input(event):
 	
-	if get_node("/root/Root/CanvasLayer/Hotbar").selected != 8:
-		return
+	if get_node("/root/Root/CanvasLayer/Hotbar"):
+		if get_node("/root/Root/CanvasLayer/Hotbar").selected != 8:
+			return
 	
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1: # Left mouse click
 		var shapes = get_world_2d().direct_space_state.intersect_point(get_global_mouse_position(), 32, [], 0x7FFFFFFF, true, true) # The last 'true' enables Area2D intersections, previous four values are all defaults

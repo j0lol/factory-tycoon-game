@@ -16,5 +16,5 @@ func _process(delta):
 	if global.in_ui:
 		return
 	self.clear()
-	var tile = library.get_mouse_tile_pos(self)
+	var tile = world_to_map(get_global_mouse_position())
 	set_cell(tile.x, tile.y, 0)

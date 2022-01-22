@@ -273,7 +273,7 @@ instance_dock/scenes=[ {
 [application]
 
 config/name="Factory-tycoon"
-run/main_scene="res://Node2D.tscn"
+run/main_scene="res://MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

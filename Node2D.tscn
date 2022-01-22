@@ -299,6 +299,14 @@ format = 1
 tile_data = PoolIntArray( 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 65551, 0, 0, 131090, 0, 0, 131091, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0 )
 script = ExtResource( 1 )
 
+[node name="HUDMap" type="TileMap" parent="."]
+z_index = 9
+z_as_relative = false
+tile_set = SubResource( 2 )
+cell_size = Vector2( 16, 16 )
+format = 1
+script = ExtResource( 5 )
+
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 200, 96 )
 collision_layer = 5
@@ -307,15 +315,6 @@ collision_mask = 7
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -8, 9 )
 current = true
-
-[node name="HUDMap" type="TileMap" parent="Player"]
-position = Vector2( -200, -104 )
-z_index = 9
-z_as_relative = false
-tile_set = SubResource( 2 )
-cell_size = Vector2( 16, 16 )
-format = 1
-script = ExtResource( 5 )
 
 [node name="Machine" parent="." instance=ExtResource( 13 )]
 collision_layer = 2

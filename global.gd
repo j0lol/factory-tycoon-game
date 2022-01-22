@@ -2,6 +2,13 @@ extends Node
 
 var in_ui = false
 
+func _process(delta):
+	if in_ui:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+
 var tile_size = 16
 var speed = 3
 
